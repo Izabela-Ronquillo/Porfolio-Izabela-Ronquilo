@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Izabela Dorinne P. Ronquillo | IT Portfolio</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -11,11 +12,9 @@
             --secondary: #b4a196;
             --accent: #d4c5b9;
             --dark: #2d2d2d;
-            --dark-light: #4a4a4a;
             --light: #faf8f6;
             --cream: #f5f1ed;
             --gray: #6b6b6b;
-            --card: #ffffff;
         }
  
         * {
@@ -26,17 +25,17 @@
  
         html {
             scroll-behavior: smooth;
+            font-size: 14px;
         }
  
         body {
             font-family: 'Inter', sans-serif;
             background: var(--light);
             color: var(--dark);
-            line-height: 1.7;
+            line-height: 1.6;
             overflow-x: hidden;
         }
  
-        /* Animated Background */
         .bg-animation {
             position: fixed;
             top: 0;
@@ -50,8 +49,8 @@
         .bg-animation span {
             position: absolute;
             display: block;
-            width: 20px;
-            height: 20px;
+            width: 15px;
+            height: 15px;
             background: var(--primary);
             animation: float 25s infinite;
             border-radius: 50%;
@@ -77,15 +76,14 @@
             transition: all 0.3s ease;
         }
  
-        /* Header */
         header {
             background: linear-gradient(135deg, #8b7355 0%, #b4a196 100%);
             color: var(--light);
-            padding: 120px 10% 80px;
+            padding: 50px 5% 40px;
             text-align: center;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(139, 115, 85, 0.15);
+            box-shadow: 0 15px 40px rgba(139, 115, 85, 0.15);
         }
  
         header::before {
@@ -96,28 +94,28 @@
             width: 200%;
             height: 200%;
             background: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
+            background-size: 40px 40px;
             animation: gridMove 20s linear infinite;
         }
  
         @keyframes gridMove {
             0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
+            100% { transform: translate(40px, 40px); }
         }
  
         header h1 {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
             font-weight: 800;
             position: relative;
             z-index: 1;
-            text-shadow: 2px 2px 20px rgba(0,0,0,0.1);
+            text-shadow: 2px 2px 15px rgba(0,0,0,0.1);
             animation: fadeInUp 1s ease;
-            letter-spacing: -1px;
+            letter-spacing: -0.3px;
         }
  
         header p {
-            font-size: 1.3rem;
+            font-size: 0.9rem;
             opacity: 0.95;
             position: relative;
             z-index: 1;
@@ -126,32 +124,33 @@
         }
  
         nav {
-            margin-top: 35px;
+            margin-top: 20px;
             position: relative;
             z-index: 1;
             animation: fadeInUp 1s ease 0.4s both;
         }
  
         nav a {
-            margin: 0 20px;
+            margin: 0 10px;
             color: var(--light);
             font-weight: 600;
-            padding: 10px 20px;
-            border-radius: 25px;
+            padding: 6px 14px;
+            border-radius: 20px;
             transition: all 0.3s ease;
             display: inline-block;
+            font-size: 0.8rem;
         }
  
         nav a:hover {
             background: rgba(255,255,255,0.15);
-            transform: translateY(-3px);
+            transform: translateY(-2px);
             text-decoration: none;
         }
  
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -159,17 +158,15 @@
             }
         }
  
-        /* Container */
         .container {
             background: var(--light);
             min-height: 100vh;
         }
  
-        /* Sections */
         section {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: auto;
-            padding: 80px 10%;
+            padding: 50px 5%;
             animation: fadeIn 1s ease;
         }
  
@@ -179,101 +176,94 @@
         }
  
         section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 50px;
+            font-size: 1.6rem;
+            margin-bottom: 30px;
             position: relative;
             display: inline-block;
             font-weight: 800;
             color: var(--primary);
-            letter-spacing: -0.5px;
+            letter-spacing: -0.3px;
         }
  
         section h2::after {
             content: "";
             width: 100%;
-            height: 4px;
+            height: 3px;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
             position: absolute;
             left: 0;
-            bottom: -15px;
-            border-radius: 3px;
+            bottom: -8px;
+            border-radius: 2px;
             animation: slideIn 0.8s ease;
         }
  
         @keyframes slideIn {
-            from {
-                width: 0;
-            }
-            to {
-                width: 100%;
-            }
+            from { width: 0; }
+            to { width: 100%; }
         }
  
-        /* About */
         #about {
             background: var(--cream);
-            border-radius: 30px;
-            margin-top: -50px;
-            box-shadow: 0 20px 60px rgba(139, 115, 85, 0.08);
+            border-radius: 25px;
+            margin-top: -25px;
+            box-shadow: 0 15px 45px rgba(139, 115, 85, 0.08);
         }
  
         #about p {
-            max-width: 900px;
+            max-width: 850px;
             color: var(--gray);
-            font-size: 1.15rem;
-            line-height: 2;
+            font-size: 0.95rem;
+            line-height: 1.7;
             text-align: justify;
         }
  
-        /* Skills */
         .skills {
             background: white;
-            border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(139, 115, 85, 0.08);
+            border-radius: 25px;
+            box-shadow: 0 15px 45px rgba(139, 115, 85, 0.08);
         }
  
         .skills ul {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 10px;
             list-style: none;
         }
  
         .skills li {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-size: 0.95rem;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 0.8rem;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(139, 115, 85, 0.2);
+            box-shadow: 0 4px 12px rgba(139, 115, 85, 0.2);
             cursor: pointer;
         }
  
         .skills li:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 10px 30px rgba(139, 115, 85, 0.3);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(139, 115, 85, 0.3);
         }
  
-        /* Projects */
         #projects {
             background: var(--cream);
-            border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(139, 115, 85, 0.08);
+            border-radius: 25px;
+            box-shadow: 0 15px 45px rgba(139, 115, 85, 0.08);
         }
  
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
         }
  
         .project {
             background: white;
-            border-radius: 20px;
-            padding: 35px;
-            box-shadow: 0 10px 40px rgba(139, 115, 85, 0.08);
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 8px 30px rgba(139, 115, 85, 0.08);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
@@ -285,7 +275,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
+            height: 3px;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
             transform: scaleX(0);
             transition: transform 0.4s ease;
@@ -296,66 +286,66 @@
         }
  
         .project:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(139, 115, 85, 0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 16px 50px rgba(139, 115, 85, 0.15);
         }
  
         .project h3 {
             margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
             color: var(--dark);
             font-weight: 700;
         }
  
         .project p {
             color: var(--gray);
-            font-size: 1rem;
-            line-height: 1.8;
-            margin-bottom: 15px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin-bottom: 10px;
         }
  
         .project a {
             display: inline-block;
-            margin-top: 10px;
-            padding: 10px 25px;
+            margin-top: 6px;
+            padding: 7px 18px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            border-radius: 25px;
+            border-radius: 20px;
             font-weight: 600;
             transition: all 0.3s ease;
+            font-size: 0.8rem;
         }
  
         .project a:hover {
-            transform: translateX(5px);
-            box-shadow: 0 5px 20px rgba(139, 115, 85, 0.3);
+            transform: translateX(4px);
+            box-shadow: 0 4px 18px rgba(139, 115, 85, 0.3);
             text-decoration: none;
         }
  
-        /* Certifications */
         #certifications {
             background: white;
-            border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(139, 115, 85, 0.08);
+            border-radius: 25px;
+            box-shadow: 0 15px 45px rgba(139, 115, 85, 0.08);
         }
  
         .certifications-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
         }
  
         .cert-card {
             background: linear-gradient(135deg, #d4c5b9 0%, #b4a196 100%);
-            border-radius: 20px;
-            padding: 30px 25px;
-            box-shadow: 0 10px 30px rgba(180, 161, 150, 0.2);
+            border-radius: 18px;
+            padding: 22px 18px;
+            box-shadow: 0 8px 25px rgba(180, 161, 150, 0.2);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 120px;
+            min-height: 90px;
             color: white;
             text-decoration: none;
             position: relative;
@@ -365,9 +355,9 @@
         .cert-card::before {
             content: '✦';
             position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 1.5rem;
+            top: 10px;
+            right: 10px;
+            font-size: 1rem;
             opacity: 0.3;
             transition: all 0.3s ease;
         }
@@ -378,8 +368,8 @@
         }
  
         .cert-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 50px rgba(180, 161, 150, 0.3);
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 16px 45px rgba(180, 161, 150, 0.3);
             text-decoration: none;
         }
  
@@ -392,44 +382,42 @@
         }
  
         .cert-card h3 {
-            font-size: 1.05rem;
+            font-size: 0.85rem;
             margin: 0;
             color: white;
-            line-height: 1.5;
+            line-height: 1.4;
             font-weight: 700;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
  
-        /* Activities */
         #activities {
             background: var(--cream);
-            border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(139, 115, 85, 0.08);
+            border-radius: 25px;
+            box-shadow: 0 15px 45px rgba(139, 115, 85, 0.08);
         }
  
         #activities p {
             color: var(--gray);
-            font-size: 1.1rem;
-            line-height: 2;
-            max-width: 900px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            max-width: 850px;
         }
  
-        /* Contact */
         #contact {
             background: white;
-            border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(139, 115, 85, 0.08);
+            border-radius: 25px;
+            box-shadow: 0 15px 45px rgba(139, 115, 85, 0.08);
         }
  
         #contact p {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
             color: var(--gray);
             transition: all 0.3s ease;
         }
  
         #contact p:hover {
-            transform: translateX(10px);
+            transform: translateX(8px);
             color: var(--primary);
         }
  
@@ -455,44 +443,42 @@
             width: 100%;
         }
  
-        /* Games Section */
         #games {
             background: var(--cream);
-            border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(139, 115, 85, 0.08);
-            padding: 80px 10%;
+            border-radius: 25px;
+            box-shadow: 0 15px 45px rgba(139, 115, 85, 0.08);
+            padding: 50px 5%;
         }
  
         .games-container {
             display: flex;
-            gap: 40px;
-            margin-top: 30px;
+            gap: 25px;
+            margin-top: 20px;
             align-items: flex-start;
         }
  
         .game-wrapper {
             background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 40px rgba(139, 115, 85, 0.08);
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 0 8px 30px rgba(139, 115, 85, 0.08);
             transition: all 0.4s ease;
             flex: 1;
         }
  
         .game-wrapper:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(139, 115, 85, 0.15);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 50px rgba(139, 115, 85, 0.15);
         }
  
         .game-title {
-            font-size: 1.8rem;
+            font-size: 1.2rem;
             color: var(--primary);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-weight: 700;
             text-align: center;
         }
  
-        /* Snake Game Styles */
         .snake-container {
             text-align: center;
         }
@@ -500,18 +486,18 @@
         .snake-score-board {
             background-color: #0f380f;
             color: #9bbc0f;
-            padding: 10px 20px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            font-size: 1.2em;
+            padding: 6px 14px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
             font-weight: bold;
         }
  
         #snakeCanvas {
             background-color: #9bbc0f;
-            border: 8px solid #0f380f;
-            border-radius: 5px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            border: 5px solid #0f380f;
+            border-radius: 4px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
             max-width: 100%;
             height: auto;
             margin: 0 auto;
@@ -519,20 +505,20 @@
         }
  
         .mobile-controls {
-            margin-top: 20px;
+            margin-top: 12px;
             display: grid;
-            grid-template-columns: repeat(3, 60px);
-            grid-template-rows: repeat(3, 60px);
-            gap: 8px;
+            grid-template-columns: repeat(3, 45px);
+            grid-template-rows: repeat(3, 45px);
+            gap: 5px;
             justify-content: center;
         }
  
         .control-btn {
             background-color: #0f380f;
             color: #9bbc0f;
-            border: 3px solid #9bbc0f;
-            border-radius: 10px;
-            font-size: 1.5em;
+            border: 2px solid #9bbc0f;
+            border-radius: 7px;
+            font-size: 1.1em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.1s;
@@ -555,7 +541,7 @@
             grid-row: 2;
             background-color: #306230;
             border-color: #0f380f;
-            font-size: 1em;
+            font-size: 0.85em;
             cursor: default;
         }
         .control-btn.right { grid-column: 3; grid-row: 2; }
@@ -569,8 +555,8 @@
             align-items: center;
             background-color: rgba(15, 56, 15, 0.95);
             color: #9bbc0f;
-            border-radius: 10px;
-            padding: 30px;
+            border-radius: 8px;
+            padding: 20px;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -580,17 +566,29 @@
         #snakeGameOverScreen.show {
             display: flex;
         }
+
+        #snakeGameOverScreen h2 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: #9bbc0f;
+        }
+
+        #snakeGameOverScreen p {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            color: #9bbc0f;
+        }
  
         .restart-btn {
             background-color: #9bbc0f;
             color: #0f380f;
             border: none;
-            padding: 12px 25px;
-            font-size: 1.1em;
+            padding: 8px 18px;
+            font-size: 0.85em;
             font-weight: bold;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
-            margin-top: 15px;
+            margin-top: 10px;
             transition: transform 0.2s;
         }
  
@@ -598,13 +596,12 @@
             transform: scale(1.1);
         }
  
-        /* Fireworks Styles */
         .fireworks-container {
             position: relative;
             width: 100%;
-            height: 600px;
+            height: 450px;
             background: #000;
-            border-radius: 15px;
+            border-radius: 12px;
             overflow: hidden;
         }
  
@@ -614,62 +611,108 @@
             height: 100%;
         }
  
-        /* Footer */
         footer {
             background: var(--dark);
             color: var(--accent);
             text-align: center;
-            padding: 40px 10%;
-            font-size: 1rem;
+            padding: 30px 5%;
+            font-size: 0.85rem;
         }
  
         footer a {
             color: var(--accent);
-            margin: 0 15px;
+            margin: 0 10px;
             transition: all 0.3s ease;
         }
  
         footer a:hover {
             color: var(--light);
-            transform: translateY(-3px);
+            transform: translateY(-2px);
             display: inline-block;
         }
  
-        /* Responsive */
         @media (max-width: 968px) {
             .games-container {
                 flex-direction: column;
             }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            header p {
+                font-size: 0.8rem;
+            }
+
+            section h2 {
+                font-size: 1.4rem;
+            }
         }
  
         @media (max-width: 768px) {
+            header {
+                padding: 40px 5% 35px;
+            }
+
             header h1 {
-                font-size: 2.5rem;
+                font-size: 1.3rem;
             }
  
             header p {
-                font-size: 1.1rem;
+                font-size: 0.75rem;
             }
  
             nav a {
-                margin: 8px;
-                display: inline-block;
+                margin: 5px;
+                padding: 5px 10px;
+                font-size: 0.7rem;
             }
  
+            section {
+                padding: 40px 5%;
+            }
+
             section h2 {
-                font-size: 2rem;
+                font-size: 1.2rem;
+                margin-bottom: 20px;
             }
  
             .projects-grid,
             .certifications-grid {
                 grid-template-columns: 1fr;
             }
+
+            .fireworks-container {
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            html {
+                font-size: 13px;
+            }
+
+            header h1 {
+                font-size: 1.2rem;
+            }
+
+            section {
+                padding: 35px 5%;
+            }
+
+            .game-title {
+                font-size: 1rem;
+            }
+
+            .mobile-controls {
+                grid-template-columns: repeat(3, 40px);
+                grid-template-rows: repeat(3, 40px);
+            }
         }
  
-        /* Scroll Reveal */
         .reveal {
             opacity: 0;
-            transform: translateY(50px);
+            transform: translateY(40px);
             transition: all 0.8s ease;
         }
  
@@ -830,10 +873,10 @@
             <p>💻 GitHub: <a href="https://github.com/Izabela-Ronquillo" target="_blank">@Izabela-Ronquillo</a></p>
         </section>
  
-        <!-- Games Section -->
         <section id="games" class="reveal">
             <h2>Interactive Games</h2>
             <div class="games-container">
+                <div class="games-container">
                 <!-- Snake Game -->
                 <div class="game-wrapper">
                     <h3 class="game-title">🐍 Snake Game</h3>
