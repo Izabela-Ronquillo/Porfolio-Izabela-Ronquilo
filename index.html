@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +24,7 @@
  
         html {
             scroll-behavior: smooth;
-            font-size: 14px;
+            font-size: 20px;
         }
  
         body {
@@ -138,7 +137,7 @@
             border-radius: 20px;
             transition: all 0.3s ease;
             display: inline-block;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
         }
  
         nav a:hover {
@@ -235,7 +234,7 @@
             color: white;
             padding: 8px 18px;
             border-radius: 40px;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-weight: 600;
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(139, 115, 85, 0.2);
@@ -453,7 +452,7 @@
         .games-container {
             display: flex;
             gap: 25px;
-            margin-top: 20px;
+            margin-top: 30px;
             align-items: flex-start;
         }
  
@@ -463,7 +462,7 @@
             padding: 20px;
             box-shadow: 0 8px 30px rgba(139, 115, 85, 0.08);
             transition: all 0.4s ease;
-            flex: 1;
+            flex: 2;
         }
  
         .game-wrapper:hover {
@@ -491,13 +490,27 @@
             border-radius: 4px;
             font-size: 0.9rem;
             font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .snake-score-board .high-score {
+            color: #ffd700;
+            margin-left: 20px;
+        }
+
+
+        .snake-score-board .high-score {
+            color: #ffd700;
+            margin-left: 20px;
         }
  
         #snakeCanvas {
             background-color: #9bbc0f;
             border: 5px solid #0f380f;
             border-radius: 4px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3), inset 0 0 50px rgba(15, 56, 15, 0.1);
             max-width: 100%;
             height: auto;
             margin: 0 auto;
@@ -665,7 +678,7 @@
             nav a {
                 margin: 5px;
                 padding: 5px 10px;
-                font-size: 0.7rem;
+                font-size: 0.9rem;
             }
  
             section {
@@ -743,8 +756,8 @@
             <a href="#projects">Projects</a>
             <a href="#certifications">Certifications</a>
             <a href="#activities">Experience</a>
-            <a href="#games">Games</a>
             <a href="#contact">Contact</a>
+            <a href="#games">Games</a>
         </nav>
     </header>
  
@@ -872,23 +885,24 @@
             <p>💼 LinkedIn: <a href="https://www.linkedin.com/in/izabela-ronquillo-a177453a4/" target="_blank">Izabela Ronquillo</a></p>
             <p>💻 GitHub: <a href="https://github.com/Izabela-Ronquillo" target="_blank">@Izabela-Ronquillo</a></p>
         </section>
- 
+
         <section id="games" class="reveal">
             <h2>Interactive Games</h2>
             <div class="games-container">
-                <div class="games-container">
                 <!-- Snake Game -->
                 <div class="game-wrapper">
                     <h3 class="game-title">🐍 Snake Game</h3>
                     <div class="snake-container">
                         <div class="snake-score-board">
-                            Score: <span id="snakeScore">0</span>
+                            <span>Score: <span id="snakeScore">0</span></span>
+                            <span class="high-score">High: <span id="snakeHighScore">0</span></span>
                         </div>
                         <div style="position: relative;">
                             <canvas id="snakeCanvas" width="400" height="400"></canvas>
                             <div id="snakeGameOverScreen">
                                 <h2>GAME OVER!</h2>
                                 <p>Final Score: <span id="snakeFinalScore">0</span></p>
+                                <p id="newHighScore" style="color: #ffd700; display: none; font-weight: bold;">🏆 NEW HIGH SCORE! 🏆</p>
                                 <button class="restart-btn" onclick="restartSnake()">PLAY AGAIN</button>
                             </div>
                         </div>
@@ -943,8 +957,10 @@
         const snakeCanvas = document.getElementById('snakeCanvas');
         const snakeCtx = snakeCanvas.getContext('2d');
         const scoreElement = document.getElementById('snakeScore');
+        const highScoreElement = document.getElementById('snakeHighScore');
         const finalScoreElement = document.getElementById('snakeFinalScore');
         const gameOverScreen = document.getElementById('snakeGameOverScreen');
+        const newHighScoreElement = document.getElementById('newHighScore');
  
         const TILE_SIZE = 25;
         const GRID_WIDTH = 25;
@@ -958,7 +974,9 @@
         let running = false;
         let gameOver = false;
         let score = 0;
+        let highScore = 0;
         let gameLoop = null;
+        let particles = [];
  
         function initSnake() {
             snakeCanvas.width = GRID_WIDTH * TILE_SIZE;
@@ -1003,9 +1021,11 @@
             score = 0;
             gameOver = false;
             running = true;
+            particles = [];
  
             updateScore();
             gameOverScreen.classList.remove('show');
+            newHighScoreElement.style.display = 'none';
             spawnFood();
  
             if (gameLoop) clearInterval(gameLoop);
@@ -1023,6 +1043,43 @@
                     segment.x === food.x && segment.y === food.y
                 );
             }
+        }
+
+        function createFoodParticles(x, y) {
+            const particleCount = 15;
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: x * TILE_SIZE + TILE_SIZE / 2,
+                    y: y * TILE_SIZE + TILE_SIZE / 2,
+                    vx: (Math.random() - 0.5) * 4,
+                    vy: (Math.random() - 0.5) * 4,
+                    life: 1,
+                    size: Math.random() * 3 + 1
+                });
+            }
+        }
+
+        function updateParticles() {
+            particles.forEach((p, i) => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life -= 0.02;
+                if (p.life <= 0) {
+                    particles.splice(i, 1);
+                }
+            });
+        }
+
+        function drawParticles() {
+            particles.forEach(p => {
+                snakeCtx.save();
+                snakeCtx.globalAlpha = p.life;
+                snakeCtx.fillStyle = '#ffd700';
+                snakeCtx.beginPath();
+                snakeCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                snakeCtx.fill();
+                snakeCtx.restore();
+            });
         }
  
         function updateSnake() {
@@ -1054,47 +1111,120 @@
             if (head.x === food.x && head.y === food.y) {
                 score += 10;
                 updateScore();
+                createFoodParticles(food.x, food.y);
                 spawnFood();
             } else {
                 snake.pop();
             }
- 
+
+            updateParticles();
             drawSnake();
         }
  
         function drawSnake() {
             snakeCtx.fillStyle = '#9bbc0f';
             snakeCtx.fillRect(0, 0, snakeCanvas.width, snakeCanvas.height);
+
+            // Draw grid pattern
+            snakeCtx.strokeStyle = 'rgba(15, 56, 15, 0.05)';
+            snakeCtx.lineWidth = 1;
+            for (let i = 0; i < GRID_WIDTH; i++) {
+                for (let j = 0; j < GRID_HEIGHT; j++) {
+                    if ((i + j) % 2 === 0) {
+                        snakeCtx.fillStyle = 'rgba(15, 56, 15, 0.02)';
+                        snakeCtx.fillRect(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+                    }
+                }
+            }
  
-            snakeCtx.fillStyle = '#306230';
-            snakeCtx.fillRect(
-                food.x * TILE_SIZE,
-                food.y * TILE_SIZE,
-                TILE_SIZE,
-                TILE_SIZE
+            // Draw food with glow effect
+            snakeCtx.save();
+            snakeCtx.shadowColor = '#ff0000';
+            snakeCtx.shadowBlur = 15;
+            snakeCtx.fillStyle = '#ff0000';
+            snakeCtx.beginPath();
+            snakeCtx.arc(
+                food.x * TILE_SIZE + TILE_SIZE / 2,
+                food.y * TILE_SIZE + TILE_SIZE / 2,
+                TILE_SIZE / 2 - 2,
+                0,
+                Math.PI * 2
             );
+            snakeCtx.fill();
+            snakeCtx.restore();
  
+            // Draw snake with gradient and segments
             snake.forEach((segment, index) => {
-                snakeCtx.fillStyle = index === 0 ? '#0f380f' : '#306230';
+                const isHead = index === 0;
+                
+                snakeCtx.save();
+                if (isHead) {
+                    snakeCtx.shadowColor = '#0f380f';
+                    snakeCtx.shadowBlur = 8;
+                    snakeCtx.fillStyle = '#0f380f';
+                } else {
+                    const gradient = snakeCtx.createLinearGradient(
+                        segment.x * TILE_SIZE,
+                        segment.y * TILE_SIZE,
+                        segment.x * TILE_SIZE + TILE_SIZE,
+                        segment.y * TILE_SIZE + TILE_SIZE
+                    );
+                    gradient.addColorStop(0, '#306230');
+                    gradient.addColorStop(1, '#204020');
+                    snakeCtx.fillStyle = gradient;
+                }
+                
                 snakeCtx.fillRect(
-                    segment.x * TILE_SIZE,
-                    segment.y * TILE_SIZE,
-                    TILE_SIZE,
-                    TILE_SIZE
+                    segment.x * TILE_SIZE + 1,
+                    segment.y * TILE_SIZE + 1,
+                    TILE_SIZE - 2,
+                    TILE_SIZE - 2
                 );
+                snakeCtx.restore();
+
+                // Draw eyes on head
+                if (isHead) {
+                    snakeCtx.fillStyle = '#9bbc0f';
+                    const eyeSize = 3;
+                    const eyeOffset = 6;
+                    
+                    if (direction === 'RIGHT') {
+                        snakeCtx.fillRect(segment.x * TILE_SIZE + TILE_SIZE - eyeOffset, segment.y * TILE_SIZE + 6, eyeSize, eyeSize);
+                        snakeCtx.fillRect(segment.x * TILE_SIZE + TILE_SIZE - eyeOffset, segment.y * TILE_SIZE + TILE_SIZE - 9, eyeSize, eyeSize);
+                    } else if (direction === 'LEFT') {
+                        snakeCtx.fillRect(segment.x * TILE_SIZE + eyeOffset - 3, segment.y * TILE_SIZE + 6, eyeSize, eyeSize);
+                        snakeCtx.fillRect(segment.x * TILE_SIZE + eyeOffset - 3, segment.y * TILE_SIZE + TILE_SIZE - 9, eyeSize, eyeSize);
+                    } else if (direction === 'UP') {
+                        snakeCtx.fillRect(segment.x * TILE_SIZE + 6, segment.y * TILE_SIZE + eyeOffset - 3, eyeSize, eyeSize);
+                        snakeCtx.fillRect(segment.x * TILE_SIZE + TILE_SIZE - 9, segment.y * TILE_SIZE + eyeOffset - 3, eyeSize, eyeSize);
+                    } else if (direction === 'DOWN') {
+                        snakeCtx.fillRect(segment.x * TILE_SIZE + 6, segment.y * TILE_SIZE + TILE_SIZE - eyeOffset, eyeSize, eyeSize);
+                        snakeCtx.fillRect(segment.x * TILE_SIZE + TILE_SIZE - 9, segment.y * TILE_SIZE + TILE_SIZE - eyeOffset, eyeSize, eyeSize);
+                    }
+                }
             });
+
+            drawParticles();
         }
  
         function endSnake() {
             running = false;
             gameOver = true;
             clearInterval(gameLoop);
+            
+            if (score > highScore) {
+                highScore = score;
+                highScoreElement.textContent = highScore;
+                newHighScoreElement.style.display = 'block';
+            }
+            
             finalScoreElement.textContent = score;
             gameOverScreen.classList.add('show');
         }
  
         function updateScore() {
             scoreElement.textContent = score;
+            highScoreElement.textContent = highScore;
         }
  
         function restartSnake() {
@@ -1159,13 +1289,14 @@
                 this.y = y;
                 this.color = color;
                 this.velocity = {
-                    x: (Math.random() - 0.5) * 8,
-                    y: (Math.random() - 0.5) * 8
+                    x: (Math.random() - 0.5) * 10,
+                    y: (Math.random() - 0.5) * 10
                 };
                 this.alpha = 1;
-                this.decay = Math.random() * 0.015 + 0.01;
-                this.gravity = 0.05;
-                this.size = Math.random() * 3 + 1;
+                this.decay = Math.random() * 0.015 + 0.015;
+                this.gravity = 0.08;
+                this.size = Math.random() * 4 + 2;
+                this.flicker = Math.random() * 0.5 + 0.5;
             }
  
             update() {
@@ -1173,15 +1304,32 @@
                 this.x += this.velocity.x;
                 this.y += this.velocity.y;
                 this.alpha -= this.decay;
+                this.flicker = Math.sin(Date.now() * 0.01) * 0.3 + 0.7;
             }
  
             draw() {
                 fireworksCtx.save();
-                fireworksCtx.globalAlpha = this.alpha;
-                fireworksCtx.fillStyle = this.color;
+                fireworksCtx.globalAlpha = this.alpha * this.flicker;
+                
+                // Glow effect
+                const gradient = fireworksCtx.createRadialGradient(
+                    this.x, this.y, 0,
+                    this.x, this.y, this.size * 2
+                );
+                gradient.addColorStop(0, this.color);
+                gradient.addColorStop(1, 'transparent');
+                
+                fireworksCtx.fillStyle = gradient;
                 fireworksCtx.beginPath();
-                fireworksCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                fireworksCtx.arc(this.x, this.y, this.size * 2, 0, Math.PI * 2);
                 fireworksCtx.fill();
+                
+                // Core
+                fireworksCtx.fillStyle = 'white';
+                fireworksCtx.beginPath();
+                fireworksCtx.arc(this.x, this.y, this.size * 0.3, 0, Math.PI * 2);
+                fireworksCtx.fill();
+                
                 fireworksCtx.restore();
             }
         }
@@ -1190,24 +1338,32 @@
             constructor() {
                 this.x = Math.random() * fireworksCanvas.width;
                 this.y = fireworksCanvas.height;
-                this.targetY = Math.random() * fireworksCanvas.height * 0.5 + 50;
-                this.velocity = (this.y - this.targetY) / 60;
+                this.targetY = Math.random() * fireworksCanvas.height * 0.4 + 50;
+                this.velocity = (this.y - this.targetY) / 50;
                 this.particles = [];
                 this.exploded = false;
-                this.color = `hsl(${Math.random() * 360}, 100%, 60%)`;
+                
+                // More vibrant color palette
+                const hue = Math.random() * 360;
+                this.color = `hsl(${hue}, 100%, 60%)`;
                 this.trailParticles = [];
+                this.trailColor = `hsl(${hue}, 100%, 70%)`;
+                
+                // Random explosion patterns
+                this.explosionType = Math.floor(Math.random() * 3);
             }
  
             update() {
                 if (!this.exploded) {
                     this.y -= this.velocity;
  
-                    if (Math.random() < 0.3) {
+                    // Enhanced trail
+                    if (Math.random() < 0.5) {
                         this.trailParticles.push({
-                            x: this.x,
+                            x: this.x + (Math.random() - 0.5) * 3,
                             y: this.y,
-                            alpha: 0.5,
-                            size: 2
+                            alpha: 0.8,
+                            size: 3
                         });
                     }
  
@@ -1224,7 +1380,8 @@
                 }
  
                 this.trailParticles.forEach((t, i) => {
-                    t.alpha -= 0.02;
+                    t.alpha -= 0.03;
+                    t.y += 1;
                     if (t.alpha <= 0) {
                         this.trailParticles.splice(i, 1);
                     }
@@ -1233,29 +1390,83 @@
  
             explode() {
                 this.exploded = true;
-                const particleCount = Math.random() * 50 + 100;
+                const particleCount = Math.random() * 100 + 150;
  
                 for (let i = 0; i < particleCount; i++) {
-                    this.particles.push(new Particle(this.x, this.y, this.color));
+                    const particle = new Particle(this.x, this.y, this.color);
+                    
+                    // Different explosion patterns
+                    if (this.explosionType === 0) {
+                        // Circular burst
+                        const angle = (Math.PI * 2 * i) / particleCount;
+                        const speed = Math.random() * 5 + 3;
+                        particle.velocity.x = Math.cos(angle) * speed;
+                        particle.velocity.y = Math.sin(angle) * speed;
+                    } else if (this.explosionType === 1) {
+                        // Ring explosion
+                        const angle = (Math.PI * 2 * i) / particleCount;
+                        const speed = Math.random() * 2 + 6;
+                        particle.velocity.x = Math.cos(angle) * speed;
+                        particle.velocity.y = Math.sin(angle) * speed;
+                        particle.gravity = 0.05;
+                    } else {
+                        // Willow effect
+                        const angle = (Math.PI * 2 * i) / particleCount;
+                        const speed = Math.random() * 4 + 2;
+                        particle.velocity.x = Math.cos(angle) * speed;
+                        particle.velocity.y = Math.sin(angle) * speed - 2;
+                        particle.gravity = 0.15;
+                    }
+                    
+                    this.particles.push(particle);
+                }
+                
+                // Add some secondary sparkles
+                for (let i = 0; i < 30; i++) {
+                    const sparkle = new Particle(this.x, this.y, 'white');
+                    sparkle.velocity.x = (Math.random() - 0.5) * 12;
+                    sparkle.velocity.y = (Math.random() - 0.5) * 12;
+                    sparkle.size = Math.random() * 2 + 1;
+                    sparkle.decay = 0.03;
+                    this.particles.push(sparkle);
                 }
             }
  
             draw() {
                 if (!this.exploded) {
+                    // Enhanced trail
                     this.trailParticles.forEach(t => {
                         fireworksCtx.save();
                         fireworksCtx.globalAlpha = t.alpha;
-                        fireworksCtx.fillStyle = this.color;
+                        
+                        const gradient = fireworksCtx.createRadialGradient(
+                            t.x, t.y, 0,
+                            t.x, t.y, t.size * 2
+                        );
+                        gradient.addColorStop(0, this.trailColor);
+                        gradient.addColorStop(1, 'transparent');
+                        
+                        fireworksCtx.fillStyle = gradient;
                         fireworksCtx.beginPath();
-                        fireworksCtx.arc(t.x, t.y, t.size, 0, Math.PI * 2);
+                        fireworksCtx.arc(t.x, t.y, t.size * 2, 0, Math.PI * 2);
                         fireworksCtx.fill();
                         fireworksCtx.restore();
                     });
  
+                    // Rocket with glow
+                    fireworksCtx.save();
+                    fireworksCtx.shadowColor = this.color;
+                    fireworksCtx.shadowBlur = 20;
                     fireworksCtx.fillStyle = this.color;
                     fireworksCtx.beginPath();
-                    fireworksCtx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+                    fireworksCtx.arc(this.x, this.y, 4, 0, Math.PI * 2);
                     fireworksCtx.fill();
+                    
+                    fireworksCtx.fillStyle = 'white';
+                    fireworksCtx.beginPath();
+                    fireworksCtx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+                    fireworksCtx.fill();
+                    fireworksCtx.restore();
                 } else {
                     this.particles.forEach(p => p.draw());
                 }
@@ -1270,12 +1481,19 @@
         let lastFireworkTime = 0;
  
         function animateFireworks(currentTime) {
-            fireworksCtx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            fireworksCtx.fillStyle = 'rgba(0, 0, 0, 0.15)';
             fireworksCtx.fillRect(0, 0, fireworksCanvas.width, fireworksCanvas.height);
  
-            if (currentTime - lastFireworkTime > Math.random() * 500 + 500) {
+            // Spawn fireworks at varying intervals
+            const spawnInterval = Math.random() * 400 + 300;
+            if (currentTime - lastFireworkTime > spawnInterval) {
                 fireworks.push(new Firework());
                 lastFireworkTime = currentTime;
+                
+                // Sometimes spawn multiple at once
+                if (Math.random() < 0.3) {
+                    setTimeout(() => fireworks.push(new Firework()), 100);
+                }
             }
  
             fireworks.forEach((fw, i) => {
@@ -1295,5 +1513,6 @@
         initFireworks();
         animateFireworks(0);
     </script>
-</body>
-</html>
+
+    </body>
+</html>>
